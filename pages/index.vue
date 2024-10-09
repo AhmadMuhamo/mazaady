@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import MzTable from '../components/mzTable.vue'
+import MzTable from '@/components/mzTable.vue'
 export default {
   name: 'IndexPage',
   components: {
