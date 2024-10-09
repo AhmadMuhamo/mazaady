@@ -7,10 +7,12 @@ export const mutations = {
   SET_CATEGORIES(state, categories) {
     state.categories = categories
   },
-  SET_PROPERTIES(state, propterties) {
-    state.catProperties = propterties
-  },
-  SET_CATPROPS(state, properties) {
+  SET_PROPERTIES(state, properties) {
+    for (const prop in properties) {
+      if(properties[prop].options.length) {
+        properties[prop].options.push({ slug: 'other', name: 'Other' })
+      }
+    }
     state.catProperties = properties
   }
 }
@@ -18,7 +20,7 @@ export const getters = {
   GET_CATEGORIES(state) {
     return state.categories
   },
-  GET_CATPROPS(state) {
+  GET_PROPERTIES(state) {
     return state.catProperties
   }
 }
@@ -44,7 +46,7 @@ export const actions = {
       commit('SET_PROPERTIES', res.data.data)
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error trying to fetch categories.', error.message)
+      console.error('Error trying to fetch Category Properties.', error.message)
     }
   },
   async fetchChildProps({ commit }, id) {
@@ -56,7 +58,7 @@ export const actions = {
       return res.data.data[0].options
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error trying to fetch categories.', error.message)
+      console.error('Error trying to fetch Child Properties.', error.message)
     }
   }
 }

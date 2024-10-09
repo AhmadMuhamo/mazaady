@@ -9,25 +9,14 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+
+Vue.use(Vuetify)
 export default {
   name: 'DefaultLayout',
   data() {
-    return {
-      clipped: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Components',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Landing Page',
-          to: '/inspire'
-        }
-      ]
-    }
+    return {}
   }
 }
 </script>

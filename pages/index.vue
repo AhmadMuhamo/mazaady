@@ -1,10 +1,10 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="10" md="8">
-      <v-card class="logo pa-4 d-flex justify-center">
+      <v-card v-if="!formSubmitted" class="logo pa-4 d-flex justify-center">
         <v-row>
           <v-col cols="12">
-            <label>Main Category</label>
+            <label class="required">Main Category</label>
             <v-autocomplete
               v-model="category"
               :loading="loadingCategories"
@@ -17,7 +17,7 @@
             />
           </v-col>
           <v-col cols="12">
-            <label>Sub Category</label>
+            <label class="required">Sub Category</label>
             <v-autocomplete
               v-model="subCategory"
               :items="subCategories"
@@ -40,7 +40,11 @@
                 v-model="properties[prop.slug]"
                 outlined
                 hide-details
+                cla
+                mt-2
+                placeholder="Insert Value"
               ></v-text-field>
+
               <template v-else>
                 <v-autocomplete
                   v-model="properties[prop.slug]"
@@ -51,6 +55,14 @@
                   outlined
                   hide-details
                 />
+                <v-text-field
+                  v-if="properties[prop.slug]?.slug === 'other'"
+                  v-model="otherValues[prop.slug]"
+                  class="mt-2"
+                  outlined
+                  hide-details
+                  placeholder="Specify Value"
+                ></v-text-field>
                 <v-autocomplete
                   v-if="childProps[prop.slug]?.length"
                   v-model="childProperties[prop.slug]"
@@ -64,16 +76,29 @@
                 />
               </template>
             </v-col>
+            <v-col cols="12">
+              <v-btn size="x-large" class="white--text" block variant="flat" color="indigo" @click="submitForm">
+                SUBMIT
+              </v-btn>
+            </v-col>
           </template>
         </v-row>
       </v-card>
+      <template v-else>
+        <MzTable :payload="payload" />
+        <v-btn class="mt-5 white--text" color="grey" size="x-large" block @click="formSubmitted = false">Back</v-btn>
+      </template>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import MzTable from '../components/mzTable.vue'
 export default {
   name: 'IndexPage',
+  components: {
+    MzTable
+  },
   data() {
     return {
       category: {},
@@ -82,9 +107,11 @@ export default {
       childProperties: {},
       childProps: {},
       subCategories: [],
-      test: {},
+      otherValues: {},
       loadingCategories: true,
-      loadingProperties: false
+      loadingProperties: false,
+      formSubmitted: false,
+      payload: []
     }
   },
   computed: {
@@ -93,10 +120,10 @@ export default {
     },
     catProperties: {
       get() {
-        return this.$store.getters.GET_CATPROPS
+        return this.$store.getters.GET_PROPERTIES
       },
       set(val) {
-        this.$store.commit('SET_CATPROPS', val)
+        this.$store.commit('SET_PROPERTIES', val)
       }
     }
   },
@@ -109,8 +136,10 @@ export default {
         this.catProperties = {}
       }
     },
-    subCategory() {
-      this.fetchCatProperties()
+    subCategory(val) {
+      if (val.id) {
+        this.fetchCatProperties()
+      }
     },
     properties: {
       deep: true,
@@ -136,7 +165,40 @@ export default {
       this.childProperties = {}
       await this.$store.dispatch('fetchCatProperties', this.subCategory.id)
       this.loadingProperties = false
+    },
+    submitForm() {
+      this.payload = [
+        {
+          name: 'Category',
+          value: this.category.name
+        },
+        {
+          name: 'Sub Category',
+          value: this.subCategory.name
+        }
+      ]
+      for (const key in this.properties) {
+        this.payload.push({
+          name: key,
+          value:
+            typeof this.properties[key] === 'string'
+              ? this.properties[key]
+              : this.properties[key].name === 'Other'
+              ? this.otherValues[key]
+              : this.properties[key].name
+        })
+      }
+      this.formSubmitted = true
     }
   }
 }
 </script>
+<style lang="scss">
+.required {
+  &:after {
+    content: '*';
+    color: darken(#ff0000, 7);
+    padding-left: 5px;
+  }
+}
+</style>
