@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <Navbar />
+      <Navbar v-if="$route.name !== 'index'"/>
       <v-container>
         <Nuxt />
       </v-container>

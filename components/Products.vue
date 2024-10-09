@@ -22,7 +22,7 @@
       </v-btn>
     </div>
     <h1 class="my-3">Products <span>( 12 )</span></h1>
-    <Product v-for="product in products" :key="product.id" :product="product" class="my-5" />
+    <Product v-for="product in products" :key="product.id" :product="product" class="my-7" />
   </div>
 </template>
 <script>
