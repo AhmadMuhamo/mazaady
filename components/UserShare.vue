@@ -47,6 +47,37 @@
         </svg>
       </div>
     </div>
+    <div class="stats-chip my-3">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.4">
+          <path d="M9 11V17L11 15" stroke="#FF951D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M9 17L7 15" stroke="#FF951D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <path
+          d="M22 10V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2H14"
+          stroke="#FF951D"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M22 10H18C15 10 14 9 14 6V2L22 10Z"
+          stroke="#FF951D"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span>Download the QR code or share it with your friends.</span>
+    </div>
+    <div class="bg-gradient">
+      <div class="qr-code">
+        <img src="~/static/logo.png" alt="Mazaady" />
+        <h2 class="mt-2">Hala Ahmed</h2>
+        <img src="~/static/QrWorld-Static.png" alt="QR Code" />
+        <p>Follow Us On Mazaady</p>
+      </div>
+    </div>
   </v-card>
 </template>
 <script>
@@ -63,6 +94,31 @@ export default {
       cursor: pointer;
       transform: scale(1.1);
     }
+  }
+}
+.stats-chip {
+  padding: 15px 10px;
+  span {
+    font-size: 12px;
+  }
+}
+.bg-gradient {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, $primary-color, $secondary-color);
+  border-radius: 20px;
+  padding: 15px;
+  .qr-code {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #FFF;
+    border-radius: 20px;
+    padding: 15px;
   }
 }
 </style>

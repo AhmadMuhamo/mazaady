@@ -33,3 +33,13 @@ h2 {
 p {
   margin-bottom: 0 !important;
 }
+.stats-chip {
+  background-color: #fff5e9;
+  border-radius: 18px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 5px;
+  }
+}

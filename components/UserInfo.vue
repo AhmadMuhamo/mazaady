@@ -119,14 +119,6 @@ export default {
   justify-content: space-around;
   padding: 20px 0;
   .stats-chip {
-    background-color: #fff5e9;
-    border-radius: 18px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    svg {
-      margin-right: 5px;
-    }
     div {
       display: flex;
       flex-direction: column;
