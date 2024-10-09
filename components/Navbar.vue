@@ -164,9 +164,9 @@ export default {
           &.active {
             a {
               font-weight: 700;
-              color: #d20653;
+              color: $primary-color;
               &:after {
-                border-color: #d20653;
+                border-color: $primary-color;
               }
             }
           }
